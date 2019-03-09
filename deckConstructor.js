@@ -1,14 +1,23 @@
-//MTG CCG simulator for deck construction and deck testing
+//MTG CCG simulator for library construction and library testing
 
 // UNIVERSAL VARIABLES
 
-const FORMAT = {
+let format = {
     'Commander': false,
     'Legacy': false,
     'Modern': false,
     'Standard': false,
     'Tiny Leader': false
 };
+
+let library = [];
+let hand = [];
+let field = [];
+let graveyard = [];
+let exiled = [];
+
+let topCard = library[0];
+let bottomCard = library.slice(-1);
 
 let manaPool = {
         red: 0,
@@ -22,13 +31,13 @@ let manaPool = {
 // fix format selector code
 
 // function enterFormat(format){
-// FORMAT.format = true;
+// format.format = true;
 // };
 
 // function commander(){
 // Player.prototype.CommanderDamage = 0;
 // Player.prototype.lifeTotal = 40;
-// FORMAT.Commander = true;
+// format.Commander = true;
 // }
 
 
@@ -127,7 +136,7 @@ const forest = new Land(null, 'forest', 'colorless', null, null, null, 0, 0);
 const island = new Land(null, 'island', 'colorless', null, null, null, 0, 0);
 const swamp = new Land(null, 'swamp', 'colorless', null, null, null, 0, 0);
 
-
+// eventual player functions:
 function endturn(){
  manaPool.white = 0;
  manaPool.red = 0;
@@ -136,3 +145,18 @@ function endturn(){
  manaPool.black = 0;
  manaPool.colorless = 0;
 }
+
+function draw(){
+    library.
+    hand.unshift(topCard)
+}
+
+function discard(card){
+    hand.shift(card);
+    graveyard.unshift(card);
+}
+
+function shuffle(){
+    
+}
+
