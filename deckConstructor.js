@@ -73,17 +73,22 @@ function Card(img, name, colors, cardType, cardText, flavorText, set, manaCost, 
     this.cardText = cardText;
     this.flavorText = flavorText;
     this.set = set;
-    this.tapped = false;
     this.manaCost = manaCost;  
-    this.CMC = CMC;  
+    this.CMC = CMC; 
+
+    this.isPermanent = true;
+    if (this.isPermanent == true){
+        this.isTapped = false;
+    }
+ 
     this.tap = function(){
-        if(!this.tapped){
-            this.tapped = true;
+        if(!this.isTapped){
+            this.isTapped = true;
         }
     };
     this.untap = function(){
-        if(this.tapped){
-            this.tapped = false;
+        if(this.isTapped){
+            this.isTapped = false;
         }
     };
 }
@@ -93,9 +98,8 @@ function Creature(cardText, colors, flavorText, img, manaCost, name, set, creatu
     Card.apply(this, arguments);
     this.cardType = 'creature';
     this.creatureType = creatureType;
-    this.isPermanent = true;
     this.attack = function(){
-        this.tapped = true;
+        this.isTapped = true;
         console.log(name + ' attacks!');//for testing purposes
 // fill in combat code in later version
     };
@@ -104,14 +108,53 @@ function Creature(cardText, colors, flavorText, img, manaCost, name, set, creatu
     };
 }
 
+// for Artifact Class
+function Artifact(img, name, cardText, flavorText, set, manaCost, CMC){
+    Card.apply(this, arguments);
+
+    this.cardType = 'artifact';
+    this.colors = colorless;
+
+}
+
+// refine the following:
+
+// for Sorcery Class
+function Sorcery(img, name, colors, cardText, flavorText, set, manaCost, CMC){
+    Card.apply(this, arguments);
+
+    this.cardType = 'sorcery';
+    this.isPermanent = false;
+};
+// for Instant Class
+function Instant(img, name, colors, cardText, flavorText, set, manaCost, CMC){
+    Card.apply(this, arguments);
+
+    this.cardType = 'instant';
+    this.isPermanent = false;
+};
+// for Enchantment Class
+function Enchantment(img, name, colors, cardText, flavorText, set, manaCost, CMC){
+    Card.apply(this, arguments);
+
+    this.cardType = 'enchantment';
+};
+// for Planeswalker Class
+function Planeswalker(img, name, colors, cardText, flavorText, set, manaCost, CMC){
+    Card.apply(this, arguments);
+
+    this.cardType = 'planeswalker';
+};
+
+
+
 // for land Class
 function Land(img, name, colors, cardText, flavorText, set, manaCost, CMC){
     Card.apply(this, arguments);
 
     this.cardType = 'land';
-    this.isPermanent = true;
 
-    this.mana = function(){
+    this.produceMana = function(){
         this.tap();
         console.log('Player taps a ' + name);
 
@@ -167,7 +210,7 @@ function emptyManaPool(){
 
 function untapPermanents(){
     for(i = 0; i <= field.length; i++){
-        field[i].tapped = true;
+        field[i].isTapped = false;
     }
 }
 
