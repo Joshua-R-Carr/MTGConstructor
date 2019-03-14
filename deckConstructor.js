@@ -93,12 +93,14 @@ function Creature(cardText, colors, flavorText, img, manaCost, name, set, creatu
     Card.apply(this, arguments);
     this.cardType = 'creature';
     this.creatureType = creatureType;
+    this.isPermanent = true;
     this.attack = function(){
         this.tapped = true;
-        console.log(name + ' attacks!');
+        console.log(name + ' attacks!');//for testing purposes
+// fill in combat code in later version
     };
     this.block = function(){
-
+// fill in combat code in later version
     };
 }
 
@@ -107,6 +109,7 @@ function Land(img, name, colors, cardText, flavorText, set, manaCost, CMC){
     Card.apply(this, arguments);
 
     this.cardType = 'land';
+    this.isPermanent = true;
 
     this.mana = function(){
         this.tap();
@@ -130,6 +133,8 @@ function Land(img, name, colors, cardText, flavorText, set, manaCost, CMC){
     };
 };
 
+
+
 const mountain = new Land(null, 'mountain', 'colorless', null, null, null, 0, 0);
 const plains = new Land(null, 'plains', 'colorless', null, null, null, 0, 0);
 const forest = new Land(null, 'forest', 'colorless', null, null, null, 0, 0);
@@ -137,18 +142,9 @@ const island = new Land(null, 'island', 'colorless', null, null, null, 0, 0);
 const swamp = new Land(null, 'swamp', 'colorless', null, null, null, 0, 0);
 
 // eventual player functions:
-function endturn(){
- manaPool.white = 0;
- manaPool.red = 0;
- manaPool.green = 0;
- manaPool.blue = 0;
- manaPool.black = 0;
- manaPool.colorless = 0;
-}
-
 function draw(){
-    library.
-    hand.unshift(topCard)
+    library.shift();
+    hand.unshift(topCard);
 }
 
 function discard(card){
@@ -160,3 +156,22 @@ function shuffle(){
     
 }
 
+function emptyManaPool(){
+    manaPool.white = 0;
+    manaPool.red = 0;
+    manaPool.green = 0;
+    manaPool.blue = 0;
+    manaPool.black = 0;
+    manaPool.colorless = 0;
+}
+
+function untapPermanents(){
+    for(i = 0; i <= field.length; i++){
+        field[i].tapped = true;
+    }
+}
+
+function endturn(){
+    emptyManaPool();
+    untapPermanents();
+    }
