@@ -186,17 +186,50 @@ const swamp = new Land(null, 'swamp', 'colorless', null, null, null, 0, 0);
 
 // eventual player functions:
 function draw(){
-    library.shift();
-    hand.unshift(topCard);
+hand.push(library.pop());
+}
+
+function drawHand(){/* bug: crashes('render process gone') */
+    let HANDSIZE = hand.length;
+    while(HANDSIZE < 7){
+        draw();
+        let HANDSIZE = hand.length;
+    };
 }
 
 function discard(card){
-    hand.shift(card);
-    graveyard.unshift(card);
+    graveyard.push(hand.pop(card));
 }
 
-function shuffle(){
-    
+function discardHand(){
+    let HANDSIZE = hand.length;
+    while (HANDSIZE != 0){
+        console.log(hand[0]);
+        discard(hand[0]);
+        console.log(graveyard[0]);
+    };
+}
+
+function shuffle(){/* bug: fills library with 'undefined's*/
+        temp = [];
+        originalLength = library.length;
+        for (var i = 0; i < originalLength; i++) {
+          temp.push(library.splice(Math.floor(Math.random()*library.length),1));
+        }
+        library = temp;
+}
+
+// test function to fix shuffle bug:
+function checkShuffle(){/* bug: fills library with 'undefined's*/
+        temp = [];
+        originalLength = library.length;
+        for (var i = 0; i < originalLength; i++) {
+          console.log(i);/*shows that Land is pushed 49 times, then empty arrays(undefined) */
+          console.log(library.splice(Math.floor(Math.random()*library.length),1));
+          temp.push(library.splice(Math.floor(Math.random()*library.length),1));
+          console.log(originalLength);/*shows that originalLength stays at 99 */
+        }
+        library = temp;
 }
 
 function emptyManaPool(){
@@ -218,3 +251,29 @@ function endturn(){
     emptyManaPool();
     untapPermanents();
     }
+
+function startGame(){
+    emptyManaPool();
+    shuffle();
+    drawHand();
+}
+
+    
+    
+    
+    
+    
+    
+    // test code for filling a deck to test functions:
+
+    library.push(swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp, swamp)
+
+    library.push(mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain, mountain)
+
+    library.push(island, island, island, island, island, island, island, island, island, island, island, island, island, island, island, island, island, island, island, island)
+
+    library.push(plains, plains, plains, plains, plains, plains, plains, plains, plains, plains, plains, plains, plains, plains, plains, plains, plains, plains, plains, plains )
+
+    library.push(forest, forest, forest, forest,forest, forest, forest, forest, forest,forest, forest, forest, forest, forest,forest, forest, forest, forest, forest)
+
+    
