@@ -189,11 +189,11 @@ function draw(){
 hand.push(library.pop());
 }
 
-function drawHand(){/* bug: crashes('render process gone') */
+function drawHand(){
     let HANDSIZE = hand.length;
     while(HANDSIZE < 7){
         draw();
-        let HANDSIZE = hand.length;
+        HANDSIZE = hand.length;
     };
 }
 
@@ -210,7 +210,7 @@ function discardHand(){
     };
 }
 
-function shuffle(){/* bug: fills library with 'undefined's*/
+function shuffle(){
         temp = [];
         originalLength = library.length;
         for (var i = 0; i < originalLength; i++) {
