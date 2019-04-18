@@ -219,19 +219,6 @@ function shuffle(){
         library = temp;
 }
 
-// test function to fix shuffle bug:
-function checkShuffle(){/* bug: fills library with 'undefined's*/
-        temp = [];
-        originalLength = library.length;
-        for (var i = 0; i < originalLength; i++) {
-          console.log(i);/*shows that Land is pushed 49 times, then empty arrays(undefined) */
-          console.log(library.splice(Math.floor(Math.random()*library.length),1));
-          temp.push(library.splice(Math.floor(Math.random()*library.length),1));
-          console.log(originalLength);/*shows that originalLength stays at 99 */
-        }
-        library = temp;
-}
-
 function emptyManaPool(){
     manaPool.white = 0;
     manaPool.red = 0;
